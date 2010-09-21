@@ -7,7 +7,7 @@
 #
 #
 require 'digest/sha1'
-class Parser::BasicFile < Parser
+class Parser::BasicFile < Parser::BaseParser
   def parse(element)
     path = element.full_path
 
@@ -22,12 +22,19 @@ class Parser::BasicFile < Parser
       element[:size] = size
       element[:mtime] = stat.mtime
 
+      digest = Digest::SHA1.new(size.to_s)
       begin
-        digest = Digest::SHA1.new(File.read(path, 50*1024))
-        digest.update(size.to_s)
-        element[:hash] = digest.to_s
+        digest.update(File.read(path, 50*1024))
       rescue # Pokemon error handling, in case we can't read the file
       end
+
+      previous_hash = element[:content_hash]
+      new_hash = element[:content_hash] = digest.to_s
+      if previous_hash != new_hash
+        logger.debug("Element #{element.id} (#{path}) has changed, enqueued for FileChange worker")
+        Resque.enqueue(Worker::FileChange, element.id)
+      end
+
     end
   end   
 end

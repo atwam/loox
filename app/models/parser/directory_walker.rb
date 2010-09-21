@@ -1,7 +1,7 @@
 #
 # DirectoryWalker : Just enqueue children for parsing, used to recurse directories
 #
-class Parser::DirectoryWalker < Parser
+class Parser::DirectoryWalker < Parser::BaseParser
   def parse(element)
     path = element.full_path
     

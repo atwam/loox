@@ -21,7 +21,7 @@ gem "bson_ext", "1.0.4"
 gem "resque-mongo", :require=>'resque'
 
 gem "sunspot"
-gem "sunspot_mongoid"
+gem "sunspot_mongoid", :path=>"~/Dev/forks/sunspot_mongoid"
 
 gem "shared-mime-info", :git=>"http://github.com/hanklords/shared-mime-info.git"
 

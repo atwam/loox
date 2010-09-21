@@ -11,11 +11,11 @@ class Element
   field :collection_id
   # A hash of the file, nil when directories.
   # Should be almost surely unique for the file
-  field :hash
+  field :content_hash
 
   index :path, :unique => true
   index :parent_id
-  index :hash
+  index :content_hash
 
   def self.find_by_path(path)
     self.first(:conditions=>{:path=>path})
