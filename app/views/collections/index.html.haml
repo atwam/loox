@@ -1,0 +1,13 @@
+%h1 Listing collections
+%table
+  %tr
+    %th Name
+    %th Path
+    %th
+  - @collections.each do |collection|
+    %tr
+      %td= collection.name
+      %td= collection.base_path
+      %td
+        = link_to 'Show', collection
+= link_to 'New collection', new_collection_path

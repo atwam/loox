@@ -1,0 +1,12 @@
+%h1= @element.name
+%p= @element.path
+
+- if @element.parent
+  %p= link_to @element.parent.path, @element.parent
+%ul
+  - @element.children.each do |child|
+    %li= link_to child.name, child
+
+%h2 Attributes
+%p= ap @element.attributes
+%p= link_to @element.col, collection_url(@element.col)

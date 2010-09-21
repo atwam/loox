@@ -1,0 +1,13 @@
+- if notice
+  %p#notice= notice
+
+%h1= @collection.name
+%p= @collection.base_path
+
+%p
+  = link_to 'Base element', @collection.base_element
+
+= link_to 'Edit', edit_collection_path(@collection)
+= link_to 'Crawl', enqueue_collection_path(@collection), :method=>:post
+= link_to 'Destroy', @collection, :confirm => 'Are you sure ?', :method=>:delete
+= link_to 'Back', collections_path
