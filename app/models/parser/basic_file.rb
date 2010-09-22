@@ -1,5 +1,6 @@
 # 
 # Gets basic file info (name etc).
+# Also detects file change and submit to the queue if needed
 #
 # Define fields :
 #   size : integer, size of the field in bytes
@@ -30,7 +31,7 @@ class Parser::BasicFile < Parser::BaseParser
 
       previous_hash = element[:content_hash]
       new_hash = element[:content_hash] = digest.to_s
-      if previous_hash != new_hash
+      if true || previous_hash != new_hash
         logger.debug("Element #{element.id} (#{path}) has changed, enqueued for FileChange worker")
         Resque.enqueue(Worker::FileChange, element.id)
       end

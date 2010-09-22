@@ -23,7 +23,11 @@ gem "resque-mongo", :require=>'resque'
 gem "sunspot"
 gem "sunspot_mongoid", :path=>"~/Dev/forks/sunspot_mongoid"
 
+# Used by core parsers
 gem "shared-mime-info", :git=>"http://github.com/hanklords/shared-mime-info.git"
+# Used by other parsers
+gem "ruby-mp3info" # Parser::Audio::Mp3Parser
+gem "rmagick" # Parser::Image::StdImageParser
 
 #gem "mongo_queue", :git=>"git://github.com/Skiz/mongo_queue.git"
 # gem 'bj'
@@ -39,4 +43,7 @@ group :test do
   gem 'rspec'
   gem "rspec-rails", ">= 2.0.0.beta.20"
 end
-gem 'wirble', :group=>:development
+group :development do
+  gem "wirble"
+  gem "rdoc"
+end

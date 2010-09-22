@@ -15,7 +15,7 @@ class Parser
   end
 
   def logger
-    @@logger ||= Logger.new("#{RAILS_ROOT}/log/parser.log")
+    @@logger ||= Logger.new("#{RAILS_ROOT}/log/#{self.class.name}.log")
   end
 
   def self.all_for_mime_type(mime_type)

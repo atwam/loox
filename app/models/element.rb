@@ -9,9 +9,13 @@ class Element
   field :path
   # Collection id
   field :collection_id
+  # Mime type for this field
+  field :mime_type
   # A hash of the file, nil when directories.
   # Should be almost surely unique for the file
   field :content_hash
+  # List of fields to index in the search engine
+  field :indexed_fields, :type=>Array, :default => []
 
   index :path, :unique => true
   index :parent_id
@@ -50,6 +54,44 @@ class Element
   #
   searchable do
     text :name
+
+    text :indexed_fields do
+      self[:indexed_fields] = (self[:indexed_fields] || []).uniq
+      self[:indexed_fields].collect{|field| self[field]}.compact.join(' -- ')
+    end
+
+    string :mime_types do
+      # Return the whole mime_types hierarchy
+      # MIME[self[:mime_type]].parents
+      self[:mime_type].split('/').first
+    end
+
+    # dynamic_text :custom_fields do
+    #   self[:indexed_fields] = (self[:indexed_fields] || []).uniq
+    #   h = self[:indexed_fields].inject({}) do |hash, field|
+    #     value = self[field]
+    #     hash[field] = value if value
+    #     hash
+    #   end
+    #   h
+    # end
   end
 
+  def set_indexed_field(field, value)
+    add_indexed_field(field)
+    self[field] = value
+  end
+  def add_indexed_field(fields)
+    self[:indexed_fields] = [self[:indexed_fields],fields].flatten.compact
+  end
+
+  #
+  # Utility functions
+  #
+  def self.logger
+    @@logger ||= Logger.new("#{RAILS_ROOT}/log/#{self.class.name}.log")
+  end
+  def logger
+    @@loger
+  end
 end

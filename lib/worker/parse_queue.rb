@@ -11,13 +11,15 @@ module Worker
       element = Element.find(element_id)
       if element
         if File.exists?(element.full_path)
-          logger.info("Starting parsing of element #{element_id} (#{element.full_path}) on parser class #{parser_class}")
-          
           parsers = parser_class.all_for_mime_type(element[:mime_type]).asc(:priority)
+
+          logger.info("Starting parsing of element #{element_id} (#{element.full_path}) on #{parsers.count} parsers with class #{parser_class}")
+
           parsers.each do |parser|
+            logger.info("Starting parsing of element #{element_id} (#{element.full_path}) on parser #{parser}")
             begin
               parser.parse(element)
-            rescue e
+            rescue Exception => e
               logger.error("Parser #{parser} throwed an exception on #{element.full_path} (#{element.id})")
               logger.error(e)
             end
