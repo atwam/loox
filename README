@@ -1,4 +1,14 @@
 Needed :
 
-- Local mongodb install
+* Local mongodb install
+* Run bundle install to make sure all gems are installed
+
+h1. How to run
+
+* Start mongodb server
+* Start solr server with @sunspot-solr start@
+* Start a queue of workers (see resque doc) : @QUEUE=* rake resque:work@
+* Start a local server : rails server
+
+This is still very early stage.
 
