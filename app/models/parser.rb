@@ -1,6 +1,10 @@
 class Parser
   include Mongoid::Document
   
+  #
+  # Priority to be used for the parser
+  # Smaller numbers get called before high numbers
+  #
   field :priority, :type=>Integer
   # 
   # Limit to only files with these mime_types.

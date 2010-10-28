@@ -9,6 +9,8 @@ gem 'rails', '~> 3.0'
 # Use unicorn as the web server
 # gem 'unicorn'
 gem "haml"
+gem "hpricot"
+gem "jquery-rails"
 # Deploy with Capistrano
 # gem 'capistrano'
 
@@ -44,6 +46,7 @@ group :test do
   gem "rspec-rails", ">= 2.0.0.beta.20"
 end
 group :development do
+  gem 'rb-inotify'
   gem "wirble"
   gem "rdoc"
 end

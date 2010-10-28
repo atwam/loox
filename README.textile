@@ -12,3 +12,29 @@ h1. How to run
 
 This is still very early stage.
 
+h2. How does it work ?
+
+Loox is a rails app embedding various background processing code, workers and parsers.
+Asynchronous work is handled by a mongoid version of resque, which queue items to be processed.
+
+h3. Workers
+
+Workers are the basic object called to work on queues and are stored in @/lib/worker/@. There are two main types :
+
+* @AnalyzePath@ is the main worker, working on the @base@ queue. It gets a @collection_id@, @parent_id@ (id of the parent directory) and full path.
+It creates/loads the element if it exists and call any @BaseParser@ or subclass on it. This worker is the initial/main crawler for the collection.
+Parsers should be quick for this worker, to avoid blocking the crawl of the collection (basically filesystem parsers)
+* @ParseQueue@ and subclasses are used to simply parse a specific queue. They will watch for the queue and run specific classes of parsers on it.
+* The main example of a @ParseQueue@ worker is the @FileChanger@ worker, which is used by default to parse (using any subclass of @Parser::FileCHangeParser@)
+files that have been marked as changed. These include slower parsers
+
+h3. Parsers
+
+Parsers are stored in both @/app/models/parser@ (for basic parsers, like filesystem stuff) and @/lib/parser/@ for more advanced parsers.
+
+* @BaseParser@ are too be loaded in the @base@ queue. These are file crawling parsers.
+* @FileChangeParser@ is defined in @/app/models@ but is just there to be subclassed by any slower parser that wants to be called everytime a file seems to have changed.
+
+Parsers will only be called if they exist as documents in the mongoid database.
+Adding a parser is very simple : in rails console :
+@ MyParserType.create(:mime_types => ["/audio/"], :priority => 0)
