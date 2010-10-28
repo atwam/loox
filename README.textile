@@ -25,7 +25,7 @@ Workers are the basic object called to work on queues and are stored in @/lib/wo
 It creates/loads the element if it exists and call any @BaseParser@ or subclass on it. This worker is the initial/main crawler for the collection.
 Parsers should be quick for this worker, to avoid blocking the crawl of the collection (basically filesystem parsers)
 * @ParseQueue@ and subclasses are used to simply parse a specific queue. They will watch for the queue and run specific classes of parsers on it.
-* The main example of a @ParseQueue@ worker is the @FileChanger@ worker, which is used by default to parse (using any subclass of @Parser::FileCHangeParser@)
+* The main example of a @ParseQueue@ worker is the @FileChanger@ worker, which is used by default to parse (using any subclass of @Parser::FileChangeParser@)
 files that have been marked as changed. These include slower parsers
 
 h3. Parsers
@@ -37,4 +37,4 @@ Parsers are stored in both @/app/models/parser@ (for basic parsers, like filesys
 
 Parsers will only be called if they exist as documents in the mongoid database.
 Adding a parser is very simple : in rails console :
-@ MyParserType.create(:mime_types => ["/audio/"], :priority => 0)
+@ MyParserType.create(:mime_types => ["/audio/"], :priority => 0)@
