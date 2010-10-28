@@ -1,0 +1,12 @@
+%h2= @query
+%ul
+  - @search.each_hit_with_result do |hit, element|
+    %li
+      - if highlight = hit.highlight(:name)
+        = hit.highlight(:name).format {|f| content_tag(:em, f)}
+      - else
+        = hit.stored(:name)
+      .details
+        = element.full_path
+
+      

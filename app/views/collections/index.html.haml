@@ -10,4 +10,47 @@
       %td= collection.base_path
       %td
         = link_to 'Show', collection
-= link_to 'New collection', new_collection_path
+
+- content_for :sidebar do
+  .box
+    %h4 Collections
+    .contentarea
+      %ul.linklist
+        %li
+          = link_to 'New collection', new_collection_path
+
+  .box
+    %h4 Blandit Veroeros
+    .contentarea
+      %img.left{:alt => "Random foliage", :src => "/images/pic2.jpg"}/
+      %p
+        Sed etiam et lorem ipsum nulla vero et lobortis felis sed etiam. Lorem ipsum sit amet dolore. Nulla facilisi. Sed tortor. Aenean felis. Quisque eros etiam
+        = succeed "." do
+          %a{:href => "#"} sed commodo
+  %div
+    %h4 Nullam Dolore
+    .contentarea
+      %ul.linklist
+        %li
+          %a{:href => "#"} Volutpat at varius sed
+        %li
+          %a{:href => "#"} Sollicitudin et arcu
+        %li
+          %a{:href => "#"} Vivamus viverra nullam
+        %li
+          %a{:href => "#"} Turpis vestibulum
+        %li
+          %a{:href => "#"} Sed etiam lorem ipsum
+        %li
+          %a{:href => "#"} Sit amet dolore nulla
+        %li
+          %a{:href => "#"} Facilisi sed tortor
+        %li
+          %a{:href => "#"} Aenean felis quisque
+        %li
+          %a{:href => "#"} Eros cras lobortis vel
+        %li
+          %a{:href => "#"} Purus in eget odio sapien
+        %li
+          %a{:href => "#"} Adipiscing blandit
+  / Secondary content area end

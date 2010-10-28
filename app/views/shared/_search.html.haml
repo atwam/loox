@@ -1,0 +1,12 @@
+%form{:action => "", :method => "post"}
+  #search
+    %input.text#searchbox{:name => "q", :type => "text", :autocomplete=>'off'}/
+    %input.submit{:type => "submit", :value => "Search"}/
+:javascript
+  $(document).ready(function() {
+    $("#searchbox").searchbox({
+      url: '#{search_url}',
+      param: 'q',
+      dom_id: '#results'
+    });
+  });
