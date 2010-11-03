@@ -1,3 +1,7 @@
+# We have to explicitely require shared-mime-info since MIME is a module
+# and rails autoloading seems to struggle loading it properly
+require 'shared-mime-info'
+
 class Element
   include Mongoid::Document
   include Sunspot::Mongoid
@@ -14,7 +18,7 @@ class Element
   # A hash of the file, nil when directories.
   # Should be almost surely unique for the file
   field :content_hash
-  # List of fields to index in the search engine
+  # List of fields to index in full_text in the search engine
   field :indexed_fields, :type=>Array, :default => []
 
   index :path, :unique => true
@@ -48,22 +52,25 @@ class Element
     self.class.where(:parent_id=>id)
   end
 
+  def mime_type
+    MIME[self[:mime_type]]
+  end
+
   #
   # Search definitions and related stuff
   # Note : Sunspot::Rails defaults apply here : auto_index is true, auto_remove is true
   #
   searchable do
-    text :name
+    text :name, :stored => true
 
     text :indexed_fields do
       self[:indexed_fields] = (self[:indexed_fields] || []).uniq
       self[:indexed_fields].collect{|field| self[field]}.compact.join(' -- ')
     end
 
-    string :mime_types do
-      # Return the whole mime_types hierarchy
-      # MIME[self[:mime_type]].parents
-      self[:mime_type].split('/').first
+    string :mime_type, :stored => true
+    string :media do
+      self[:mime_type] && self[:mime_type].split('/').first
     end
 
     # dynamic_text :custom_fields do

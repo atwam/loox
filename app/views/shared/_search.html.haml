@@ -1,12 +1,14 @@
-%form{:action => "", :method => "post"}
-  #search
+#search
+  - form_tag search_url, :method=>:get do
     %input.text#searchbox{:name => "q", :type => "text", :autocomplete=>'off'}/
     %input.submit{:type => "submit", :value => "Search"}/
 :javascript
   $(document).ready(function() {
+    $("#searchbox").focus();
     $("#searchbox").searchbox({
       url: '#{search_url}',
       param: 'q',
       dom_id: '#results'
     });
+
   });

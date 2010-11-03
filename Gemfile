@@ -11,6 +11,7 @@ gem 'rails', '~> 3.0'
 gem "haml"
 gem "hpricot"
 gem "jquery-rails"
+gem "will_paginate", "~> 3.0.pre2"
 # Deploy with Capistrano
 # gem 'capistrano'
 

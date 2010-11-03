@@ -1,15 +1,17 @@
 %h1 Listing collections
-%table
-  %tr
-    %th Name
-    %th Path
-    %th
-  - @collections.each do |collection|
+%table.full
+  %thead
     %tr
-      %td= collection.name
-      %td= collection.base_path
-      %td
-        = link_to 'Show', collection
+      %th Name
+      %th Path
+      %th
+  %tbody
+    - @collections.each do |collection|
+      %tr
+        %td= collection.name
+        %td= collection.base_path
+        %td
+          = link_to 'Show', collection
 
 - content_for :sidebar do
   .box

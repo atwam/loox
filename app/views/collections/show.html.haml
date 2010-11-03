@@ -7,7 +7,14 @@
 %p
   = link_to 'Base element', @collection.base_element
 
-= link_to 'Edit', edit_collection_path(@collection)
-= link_to 'Crawl', enqueue_collection_path(@collection), :method=>:post
-= link_to 'Destroy', @collection, :confirm => 'Are you sure ?', :method=>:delete
-= link_to 'Back', collections_path
+- content_for :sidebar do
+  .box
+    %h4= @collection.name
+    %em= @collection.base_path
+    .contentarea
+      %ul.linklist
+        %li= link_to 'Edit', edit_collection_path(@collection)
+        %li= link_to 'Crawl', enqueue_collection_path(@collection), :method=>:post
+        %li= link_to 'Destroy', @collection, :confirm => 'Are you sure ?', :method=>:delete
+        %hr
+        %li= link_to 'Back to collections', collections_path
