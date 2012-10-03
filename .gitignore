@@ -11,3 +11,4 @@ public/stylesheets/default.css
 .sass-cache/
 db/solr
 tmpdata
+vendor/solr
