@@ -1,0 +1,3 @@
+bundle exec sass --watch public/stylesheets/sass public/stylesheets/
+QUEUE=* rake resque:work
+rake solr:start

@@ -1,10 +1,10 @@
 Loox::Application.routes.draw do |map|
   # The priority is based upon order of creation:
   # first created -> highest priority.
-  match '/resque', :to=>Resque::Server.new, :anchor=>false
+  match '/resque', :to=>Resque::Server.new, :anchor=>false, :as => :resque
 
   root :to => "main#index"
-  match 'search' => 'main#search', :as => :search
+  match 'search' => 'search#index', :as => :search
 
   # Sample of regular route:
   #   match 'products/:id' => 'catalog#view'

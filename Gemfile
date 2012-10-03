@@ -15,8 +15,6 @@ gem "will_paginate", "~> 3.0.pre2"
 # Deploy with Capistrano
 # gem 'capistrano'
 
-# To use debugger
-# gem 'ruby-debug'
 
 # Bundle the extra gems:
 gem "mongoid", "2.0.0.beta.17"
@@ -47,7 +45,16 @@ group :test do
   gem "rspec-rails", ">= 2.0.0.beta.20"
 end
 group :development do
+  # To use debugger
+  gem 'ruby-debug19'
+
+  gem 'ansi'
   gem 'rb-inotify'
+
+  # Needed for freebase import
+  gem 'bzip2-ruby'
+  gem 'em-http-request'
+
   gem "wirble"
   gem "rdoc"
 end

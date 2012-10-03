@@ -73,6 +73,9 @@ class Element
       self[:mime_type] && self[:mime_type].split('/').first
     end
 
+
+    # TODO: Add size index
+
     # dynamic_text :custom_fields do
     #   self[:indexed_fields] = (self[:indexed_fields] || []).uniq
     #   h = self[:indexed_fields].inject({}) do |hash, field|

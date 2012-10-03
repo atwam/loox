@@ -5,7 +5,7 @@ class Parser
   # Priority to be used for the parser
   # Smaller numbers get called before high numbers
   #
-  field :priority, :type=>Integer
+  field :priority, :type=>Integer, :default=>100
   # 
   # Limit to only files with these mime_types.
   # This gives a hint to the analyze worker but doesn't ensure that your parser will only
@@ -27,7 +27,7 @@ class Parser
       all
     else
       any_in(
-        :mime_types => [ Regexp.new(mime_type || ""), nil ]
+        :mime_types => mime_type.split("/").inject([]) {|a,e| a.empty? ? [e] : a << a.last + "/" + e} << nil
       )
     end
   end

@@ -1,0 +1,19 @@
+%table
+  %thead
+    %tr
+      %th Name
+      %th Path
+      %th Type
+      %th Size
+  %tbody
+    - search.each_hit_with_result do |hit, element|
+      %tr
+        %td
+          - if highlight = hit.highlight(:name)
+            != hit.highlight(:name).format {|f| "<span class=\"highlight\">" + h(f) + "</span>"}
+          - else
+            = element.name
+        %td= File.dirname(element.full_path)
+        %td= element.mime_type
+        %td= element[:size]
+

@@ -8,5 +8,5 @@
     %li= link_to child.name, child
 
 %h2 Attributes
-%p= ap @element.attributes
+%p= ap @element.attributes.reject{|k,v| k.to_s.start_with?("blob/")}
 %p= link_to @element.col, collection_url(@element.col)

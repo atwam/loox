@@ -1,0 +1,32 @@
+.primarycontainer
+  .primarycontent
+    %h1 Results for #{query}
+    %p Your search returned #{pluralize search.total, "result"}
+    .search-results
+      - case params[:view] || 'list'
+        - when 'list'
+          = render :partial=>'view_list', :locals=>{:search=>search}
+        - when 'tree'
+          = render :partial=>'view_browse', :locals=>{:search=>search}
+        - when 'details'
+          = render :partial=>'view_details', :locals=>{:search=>search}
+      .pagination
+        = will_paginate(search.hits)
+.secondarycontent
+  .box
+    %h4 View
+    .contentarea
+      %ul.linklist
+        %li= link_to "List", url_for({:view=>'list'}.update(params))
+        %li= link_to "Browse", url_for({:view=>'browse'}.update(params))
+        %li= link_to "Details", url_for({:view=>'details'}.update(params))
+    %h4 Categories
+    .contentarea
+      - if params[:media]
+        %p Found #{search.total} results in category #{params[:media]}
+        %ul.linklist
+          %li= link_to "See all categories", url_for(params_remove(params, :media))
+      - else
+        %ul.linklist
+          - search.facet(:media).rows.each do |row|
+            %li= link_to "#{row.value} (#{row.count})", url_for({:media=>row.value}.update(params))

@@ -1,0 +1,12 @@
+- previous_path = nil
+%ul
+  - search.each_hit_with_result do |hit, element|
+    - if File.dirname(element.full_path) == previous_path
+      .details
+        - if highlight = hit.highlight(:name)
+          != hit.highlight(:name).format {|f| "<span class=\"highlight\">" + h(f) + "</span>"}
+        - else
+          = element.name
+    - else
+      %li= previous_path = File.dirname(element.full_path)
+

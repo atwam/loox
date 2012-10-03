@@ -1,0 +1,45 @@
+Here is the list of fields an element may have :
+
+Basics :
+
+id: unique id of the element
+parent_id : id of the element containing this one.
+name: name of the field/directory
+path: full path of the element
+collection_id : collection id for this element
+
+Common to all :
+
+mime_type : The mime type of the element (inode for a directory)
+content_hash : A hash of the file, nil when directories
+
+Special :
+indexed_fields : [] array with a list of fields to index in full text in the search engine.
+
+Set by Parser::BasicFile
+size : size of the file in bytes
+mtime : mtime of the file
+
+Set by lib Parser::Audio::Mp3Parser
+file/media/length
+file/audio/samplerate
+file/audio/mpeg/version
+file/audio/mpeg/layer
+file/audio/mpeg/vbr
+* file/audio/title
+* file/audio/artist
+* file/audio/album
+file/audio/year
+file/audio/tracknum
+file/audio/genre
+file/audio/genre_s
+
+Set by lib Parser::Image::StdImageParser
+media/height : height in pixels
+media/width : width in pixels
+file/image/colors : number of colors
+file/image/format : image format
+file/image/depth_per_pixel : bits per pixel
+file/image/resolution/x : x resolution (pixels per inch)
+file/image/resolution/y : y resolution (pixels per inch)
+blob/thumbnail : thumbnail for this image, jpg binary data

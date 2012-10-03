@@ -19,7 +19,7 @@
           %h1
             Loox
             %sup 0.0a
-          %h2 I can tell your disk is a mess by the way it is.
+          %h2 I can tell your disk is a mess because of the way it is.
       #menu
         = render :partial => 'layouts/menu'
       - if content_for?(:search)
@@ -75,7 +75,9 @@
                 / Normal content area end
               .divider1
       #footer
-      .left © 2010 Loox
-      .right
-        Design by
-        %a{:href => "http://www.nodethirtythree.com/"} NodeThirtyThree Design
+        .left
+          © 2010 Loox
+          = link_to "Resque", resque_url
+        .right
+          Design by
+          %a{:href => "http://www.nodethirtythree.com/"} NodeThirtyThree Design

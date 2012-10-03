@@ -17,7 +17,7 @@ class Parser::Image::StdImageParser < Parser::FileChangeParser
   def parse(element)
     path = element.full_path
 
-    if File.file?(path)
+    if File.file?(path) && element[:mime_type].start_with?("image/")
       begin
         img = Magick::Image::read(path).first
       rescue Exception=>exception

@@ -5,6 +5,8 @@
 # Define fields :
 #   size : integer, size of the field in bytes
 #   mime_type : string, magic-guessed mime_type
+#   mtime : last modification time for the file
+#   content_hash : a sha1 digest of the size and the first 50k of file content
 #
 #
 require 'digest/sha1'
